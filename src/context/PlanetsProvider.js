@@ -5,6 +5,7 @@ import PlanetsContext from './PlanetsContext';
 
 function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
+  const [otherData, setOtherData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterByName, setFilterByName] = useState({});
 
@@ -12,12 +13,14 @@ function PlanetsProvider({ children }) {
     setLoading(true);
     const planets = await fetchPlanets();
     setData(planets.results);
+    setOtherData(planets.results);
     setLoading(false);
   }
 
-  function filterName(name) {
-    setFilterByName(name);
-    setData(data.filter((elem) => elem.name.includes(name)));
+  function filterName(value) {
+    const filterData = otherData.filter((elem) => elem.name.includes(value));
+    setData(filterData);
+    setFilterByName(value);
   }
   const contextValue = {
     data,

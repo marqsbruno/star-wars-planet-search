@@ -2,18 +2,24 @@ import React, { useContext, useEffect } from 'react';
 import PlanetsContext from './context/PlanetsContext';
 
 function Table() {
-  const { getPlanets, data } = useContext(PlanetsContext);
+  const { getPlanets, data, filterName } = useContext(PlanetsContext);
   useEffect(() => {
     getPlanets();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log(data);
   }, [data]);
-
+ */
   return (
     <div>
+      <input
+        type="text"
+        placeholder="Filtrar"
+        onChange={ (e) => filterName(e.target.value) }
+        data-testid="name-filter"
+      />
       <table>
         <tbody>
           <tr>
