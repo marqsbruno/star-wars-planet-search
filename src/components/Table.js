@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import PlanetsContext from './context/PlanetsContext';
+import PlanetsContext from '../context/PlanetsContext';
+import Filters from './Filters';
 
 function Table() {
   const { getPlanets, data, filterName } = useContext(PlanetsContext);
@@ -8,10 +9,10 @@ function Table() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /*   useEffect(() => {
+/*   useEffect(() => {
     console.log(data);
-  }, [data]);
- */
+  }, [data]); */
+
   return (
     <div>
       <input
@@ -20,6 +21,7 @@ function Table() {
         onChange={ (e) => filterName(e.target.value) }
         data-testid="name-filter"
       />
+      <Filters />
       <table>
         <tbody>
           <tr>
