@@ -9,7 +9,7 @@ function Table() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     console.log(data);
   }, [data]); */
 
