@@ -7,11 +7,18 @@ function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
   const [baseData, setBaseData] = useState([]);
   const [filterByName, setFilterByName] = useState({});
+  const [columnFilter, setColumnFilter] = useState(['population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
   const [filterByNumericValues, setFilterByNumber] = useState({
     column: 'population',
     comparison: 'maior que',
     value: 0,
   });
+  const [activeFilters, setActiveFilters] = useState([]);
 
   async function getPlanets() {
     const planets = await fetchPlanets();
@@ -26,29 +33,32 @@ function PlanetsProvider({ children }) {
   }
 
   function filterNumbers() {
+    setActiveFilters([...activeFilters, filterByNumericValues]);
     const { column, comparison, value } = filterByNumericValues;
+    setColumnFilter(columnFilter.filter((elem) => elem !== column));
+
     if (comparison === 'maior que') {
-      const filter1 = data.filter((elem) => Number(elem[column]) > value);
-      setData(filter1);
+      setData(data.filter((elem) => Number(elem[column]) > value));
     }
     if (comparison === 'menor que') {
-      const filter2 = data.filter((elem) => Number(elem[column]) < value);
-      setData(filter2);
+      setData(data.filter((elem) => Number(elem[column]) < value));
     }
     if (comparison === 'igual a') {
-      const filter3 = data.filter((elem) => Number(elem[column]) === Number(value));
       // só funcionou com Number no value, não entendi o porque, value já não é um número?
-      setData(filter3);
+      setData(data.filter((elem) => Number(elem[column]) === Number(value)));
     }
   }
   const contextValue = {
     data,
+    baseData,
     getPlanets,
     filterName,
     filterByName,
     setFilterByNumber,
     filterByNumericValues,
     filterNumbers,
+    columnFilter,
+    activeFilters,
   };
 
   return (

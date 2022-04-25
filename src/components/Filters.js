@@ -4,7 +4,9 @@ import PlanetsContext from '../context/PlanetsContext';
 function Filters() {
   const { setFilterByNumber,
     filterByNumericValues,
-    filterNumbers } = useContext(PlanetsContext);
+    filterNumbers,
+    columnFilter } = useContext(PlanetsContext);
+
   return (
     <>
       <label htmlFor="column">
@@ -15,11 +17,11 @@ function Filters() {
           onChange={ (e) => setFilterByNumber({ ...filterByNumericValues,
             column: e.target.value }) }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {
+            columnFilter.map((elem) => (
+              <option key={ elem } value={ elem }>{ elem }</option>
+            ))
+          }
         </select>
       </label>
       <label htmlFor="comparison">
