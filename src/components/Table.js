@@ -3,7 +3,7 @@ import PlanetsContext from '../context/PlanetsContext';
 import Filters from './Filters';
 
 function Table() {
-  const { getPlanets, data, filterName } = useContext(PlanetsContext);
+  const { getPlanets, data, filterName, activeFilters, setActiveFilters } = useContext(PlanetsContext);
   useEffect(() => {
     getPlanets();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -12,7 +12,6 @@ function Table() {
   /*   useEffect(() => {
     console.log(data);
   }, [data]); */
-
   return (
     <div>
       <input
@@ -22,6 +21,22 @@ function Table() {
         data-testid="name-filter"
       />
       <Filters />
+      {
+        activeFilters.map((elem, index) => (
+          <p data-testid="filter" key={ elem.column }>
+            {elem.column}
+            {elem.comparison}
+            {elem.value}
+            <button
+              type="button"
+              key={ index }
+              onClick={ () => setActiveFilters(activeFilters.filter((e) => e !== elem)) }
+            >
+              x
+            </button>
+          </p>
+        ))
+      }
       <table>
         <tbody>
           <tr>

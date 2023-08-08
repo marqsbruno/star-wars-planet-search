@@ -5,7 +5,8 @@ function Filters() {
   const { setFilterByNumber,
     filterByNumericValues,
     filterNumbers,
-    columnFilter } = useContext(PlanetsContext);
+    columnFilter,
+    getPlanets } = useContext(PlanetsContext);
 
   return (
     <>
@@ -53,6 +54,13 @@ function Filters() {
         onClick={ filterNumbers }
       >
         Filtrar
+      </button>
+      <button
+        data-testid="button-remove-filters"
+        type="button"
+        onClick={ getPlanets }
+      >
+        Remover todas filtragens
       </button>
     </>
   );
